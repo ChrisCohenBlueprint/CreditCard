@@ -5,8 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Premium Credit Card Offer</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="./style.css">
   </head>
   <body>
+    <!-- Background Blobs from Reference Repo -->
+    <div class="background-blobs">
+      <div class="blob blob-1"></div>
+      <div class="blob blob-2"></div>
+    </div>
+
     <div id="app" class="state-initial">
       
       <!-- Main Scene Container -->
@@ -14,14 +21,17 @@
         <!-- Main Credit Card -->
         <div id="main-card" class="card main-card">
           <div class="card-inner">
-            <div class="card-front">
-              <div class="card-logo">VIP</div>
-              <div class="card-chip"></div>
-              <div class="card-number">•••• •••• •••• 1234</div>
-              <div class="card-name">JOHN DOE</div>
-              <div class="tap-hint">Tap to reveal</div>
+            <div class="card-front glass">
+              <!-- Using the frame image from the reference repo as the background or overlay -->
+              <div class="card-content">
+                <div class="card-logo">VIP</div>
+                <div class="card-chip"></div>
+                <div class="card-number">•••• •••• •••• 1234</div>
+                <div class="card-name">JOHN DOE</div>
+                <div class="tap-hint">Tap to reveal</div>
+              </div>
             </div>
-            <div class="card-back">
+            <div class="card-back glass">
               <div class="offer-text">You have 10% off your selected show!</div>
             </div>
           </div>
@@ -29,15 +39,15 @@
 
         <!-- Event Cards Container -->
         <div id="events-container" class="events-container">
-          <div class="event-card" data-event="Event 1">
+          <div class="event-card glass" data-event="Event 1">
             <h3>Event 1</h3>
             <p>Click here to select this event</p>
           </div>
-          <div class="event-card" data-event="Event 2">
+          <div class="event-card glass" data-event="Event 2">
             <h3>Event 2</h3>
             <p>Click here to select this event</p>
           </div>
-          <div class="event-card" data-event="Event 3">
+          <div class="event-card glass" data-event="Event 3">
             <h3>Event 3</h3>
             <p>Click here to select this event</p>
           </div>
@@ -46,7 +56,7 @@
 
       <!-- Email Modal Overlay -->
       <div id="email-modal" class="modal-overlay hidden">
-        <div class="modal-content">
+        <div class="modal-content glass">
           <button id="close-modal" class="close-btn">&times;</button>
           <h2 id="modal-title">Enter your email to claim your 10% credit off of this Event</h2>
           <form id="email-form">
@@ -57,6 +67,6 @@
       </div>
       
     </div>
-    <script type="module" src="/src/main.js"></script>
+    <script src="./main.js" defer></script>
   </body>
 </html>

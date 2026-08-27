@@ -1,5 +1,3 @@
-import './style.css';
-
 // Simple Tracker Stub
 const Tracker = {
   logEvent: (eventName, data = {}) => {

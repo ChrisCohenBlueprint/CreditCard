@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Premium Credit Card Offer</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div id="app" class="state-initial">
+      
+      <!-- Main Scene Container -->
+      <div class="scene">
+        <!-- Main Credit Card -->
+        <div id="main-card" class="card main-card">
+          <div class="card-inner">
+            <div class="card-front">
+              <div class="card-logo">VIP</div>
+              <div class="card-chip"></div>
+              <div class="card-number">•••• •••• •••• 1234</div>
+              <div class="card-name">JOHN DOE</div>
+              <div class="tap-hint">Tap to reveal</div>
+            </div>
+            <div class="card-back">
+              <div class="offer-text">You have 10% off your selected show!</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Event Cards Container -->
+        <div id="events-container" class="events-container">
+          <div class="event-card" data-event="Event 1">
+            <h3>Event 1</h3>
+            <p>Click here to select this event</p>
+          </div>
+          <div class="event-card" data-event="Event 2">
+            <h3>Event 2</h3>
+            <p>Click here to select this event</p>
+          </div>
+          <div class="event-card" data-event="Event 3">
+            <h3>Event 3</h3>
+            <p>Click here to select this event</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Email Modal Overlay -->
+      <div id="email-modal" class="modal-overlay hidden">
+        <div class="modal-content">
+          <button id="close-modal" class="close-btn">&times;</button>
+          <h2 id="modal-title">Enter your email to claim your 10% credit off of this Event</h2>
+          <form id="email-form">
+            <input type="email" id="email-input" placeholder="Your Email Address" required />
+            <button type="submit" class="submit-btn">Claim Offer</button>
+          </form>
+        </div>
+      </div>
+      
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

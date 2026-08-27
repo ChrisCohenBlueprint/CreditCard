@@ -1,3 +1,115 @@
+// ============================================================
+// GOLD SPARKLE PARTICLE SYSTEM
+// ============================================================
+(function() {
+  const canvas = document.getElementById('sparkle-canvas');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+
+  const GOLD_COLORS = ['#ffd700', '#f5c542', '#d4af37', '#ffe066', '#ffc200', '#fff0a0'];
+  const PARTICLE_COUNT = 80;
+  let particles = [];
+  let W, H;
+
+  function resize() {
+    W = canvas.width = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+  }
+  window.addEventListener('resize', resize);
+  resize();
+
+  function randomBetween(a, b) { return a + Math.random() * (b - a); }
+
+  function createParticle() {
+    const size = randomBetween(1, 4);
+    return {
+      x: randomBetween(0, W),
+      y: randomBetween(0, H),
+      size,
+      baseSize: size,
+      color: GOLD_COLORS[Math.floor(Math.random() * GOLD_COLORS.length)],
+      alpha: randomBetween(0.1, 0.8),
+      speedX: randomBetween(-0.3, 0.3),
+      speedY: randomBetween(-0.5, -0.1), // drift upward slowly
+      twinkleSpeed: randomBetween(0.005, 0.02),
+      twinklePhase: randomBetween(0, Math.PI * 2),
+      // Some particles are 4-pointed star shapes
+      isStar: Math.random() > 0.5,
+    };
+  }
+
+  function drawStar(ctx, x, y, size, alpha, color) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = size * 3;
+    ctx.beginPath();
+    // 4-pointed star
+    for (let i = 0; i < 4; i++) {
+      const angle = (i / 4) * Math.PI * 2;
+      const outerX = x + Math.cos(angle) * size * 2;
+      const outerY = y + Math.sin(angle) * size * 2;
+      const innerAngle = angle + Math.PI / 4;
+      const innerX = x + Math.cos(innerAngle) * size * 0.5;
+      const innerY = y + Math.sin(innerAngle) * size * 0.5;
+      if (i === 0) ctx.moveTo(outerX, outerY);
+      else ctx.lineTo(outerX, outerY);
+      ctx.lineTo(innerX, innerY);
+    }
+    ctx.closePath();
+    ctx.fill();
+    ctx.restore();
+  }
+
+  function drawDot(ctx, x, y, size, alpha, color) {
+    ctx.save();
+    ctx.globalAlpha = alpha;
+    ctx.fillStyle = color;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = size * 4;
+    ctx.beginPath();
+    ctx.arc(x, y, size, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.restore();
+  }
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    particles.push(createParticle());
+  }
+
+  let animFrame;
+  function animate() {
+    ctx.clearRect(0, 0, W, H);
+    const now = Date.now() * 0.001;
+
+    particles.forEach(p => {
+      // Twinkle
+      const twinkle = 0.5 + 0.5 * Math.sin(now / p.twinkleSpeed + p.twinklePhase);
+      const currentAlpha = p.alpha * twinkle;
+      const currentSize = p.baseSize * (0.7 + 0.3 * twinkle);
+
+      if (p.isStar) {
+        drawStar(ctx, p.x, p.y, currentSize, currentAlpha, p.color);
+      } else {
+        drawDot(ctx, p.x, p.y, currentSize, currentAlpha, p.color);
+      }
+
+      // Move
+      p.x += p.speedX;
+      p.y += p.speedY;
+
+      // Wrap around edges
+      if (p.y < -10) p.y = H + 10;
+      if (p.x < -10) p.x = W + 10;
+      if (p.x > W + 10) p.x = -10;
+    });
+
+    animFrame = requestAnimationFrame(animate);
+  }
+  animate();
+})();
+
 // Simple Tracker Stub
 const Tracker = {
   logEvent: (eventName, data = {}) => {

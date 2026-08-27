@@ -21,18 +21,15 @@
   function randomBetween(a, b) { return a + Math.random() * (b - a); }
 
   function createParticle() {
-    const size = randomBetween(0.8, 2.5); // Smaller
+    const size = randomBetween(0.8, 2.5);
     return {
       x: randomBetween(0, W),
       y: randomBetween(0, H),
       size,
-      baseSize: size,
       color: GOLD_COLORS[Math.floor(Math.random() * GOLD_COLORS.length)],
-      alpha: randomBetween(0.05, 0.35), // Much dimmer
-      speedX: randomBetween(-0.08, 0.08), // Much slower drift
-      speedY: randomBetween(-0.12, -0.03), // Barely moving upward
-      twinkleSpeed: randomBetween(0.4, 1.2), // Slower twinkle (seconds per cycle)
-      twinklePhase: randomBetween(0, Math.PI * 2),
+      alpha: randomBetween(0.15, 0.5), // Fixed opacity, no flashing
+      speedX: randomBetween(-0.08, 0.08),
+      speedY: randomBetween(-0.12, -0.03),
       isStar: Math.random() > 0.6,
     };
   }
@@ -78,18 +75,13 @@
 
   function animate() {
     ctx.clearRect(0, 0, W, H);
-    const now = Date.now() * 0.001;
 
     particles.forEach(p => {
-      // Very slow, gentle twinkle
-      const twinkle = 0.5 + 0.5 * Math.sin((now / p.twinkleSpeed) + p.twinklePhase);
-      const currentAlpha = p.alpha * twinkle;
-      const currentSize = p.baseSize * (0.8 + 0.2 * twinkle);
-
+      // No twinkle — constant alpha and size
       if (p.isStar) {
-        drawStar(ctx, p.x, p.y, currentSize, currentAlpha, p.color);
+        drawStar(ctx, p.x, p.y, p.size, p.alpha, p.color);
       } else {
-        drawDot(ctx, p.x, p.y, currentSize, currentAlpha, p.color);
+        drawDot(ctx, p.x, p.y, p.size, p.alpha, p.color);
       }
 
       p.x += p.speedX;

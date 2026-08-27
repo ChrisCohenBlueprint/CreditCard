@@ -3,8 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Exclusive VIP Credit Card Event Offer. Claim your 10% credit off your selected show." />
+    <meta name="theme-color" content="#1a0505" />
     <title>Premium Credit Card Offer</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <!-- Preconnect to Google Fonts for performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -41,35 +46,35 @@
         </div>
 
         <!-- Event Cards Container -->
-        <div id="events-container" class="events-container">
-          <div class="event-card glass" data-event="Event 1">
+        <div id="events-container" class="events-container" role="list">
+          <button class="event-card glass" data-event="Event 1" aria-label="Select Event 1" role="listitem">
             <h3>Event 1</h3>
             <p>Click here to select this event</p>
-          </div>
-          <div class="event-card glass" data-event="Event 2">
+          </button>
+          <button class="event-card glass" data-event="Event 2" aria-label="Select Event 2" role="listitem">
             <h3>Event 2</h3>
             <p>Click here to select this event</p>
-          </div>
-          <div class="event-card glass" data-event="Event 3">
+          </button>
+          <button class="event-card glass" data-event="Event 3" aria-label="Select Event 3" role="listitem">
             <h3>Event 3</h3>
             <p>Click here to select this event</p>
-          </div>
+          </button>
         </div>
       </div>
 
       <!-- Email Modal Overlay -->
-      <div id="email-modal" class="modal-overlay hidden">
+      <div id="email-modal" class="modal-overlay hidden" role="dialog" aria-labelledby="modal-title" aria-modal="true">
         <div class="modal-content glass">
-          <button id="close-modal" class="close-btn">&times;</button>
+          <button id="close-modal" class="close-btn" aria-label="Close dialog">&times;</button>
           <h2 id="modal-title">Enter your email to claim your 10% credit off of this Event</h2>
           <form id="email-form">
             <div class="input-group">
-              <input type="email" id="email-input" placeholder=" " required />
+              <input type="email" id="email-input" name="email" placeholder=" " required autocomplete="email" />
               <label for="email-input">Your Email Address</label>
             </div>
-            <button type="submit" class="submit-btn">
+            <button type="submit" class="submit-btn" aria-live="polite">
               <span class="btn-text">Claim Offer</span>
-              <span class="spinner hidden"></span>
+              <span class="spinner hidden" aria-hidden="true"></span>
             </button>
           </form>
         </div>

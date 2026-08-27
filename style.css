@@ -80,17 +80,21 @@ body {
 .blob-1 {
     width: 50vw;
     height: 50vw;
-    background: #700907;
+    background: radial-gradient(circle, #b8860b, #8B6914);
     top: -10%;
     right: -10%;
+    filter: blur(30px);
+    opacity: 0.5;
 }
 
 .blob-2 {
     width: 40vw;
     height: 40vw;
-    background: var(--primary);
+    background: radial-gradient(circle, #d4af37, #b8860b);
     bottom: -10%;
     left: -10%;
+    filter: blur(30px);
+    opacity: 0.5;
 }
 
 /* ==========================================================================

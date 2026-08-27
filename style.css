@@ -217,6 +217,7 @@ body {
     margin: 20px auto 0;
     display: flex;
     align-items: center;
+    justify-content: center;
     padding: 0 1rem;
     position: relative;
     box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
@@ -225,10 +226,13 @@ body {
 }
 
 .offer-text {
-    font-size: 1.2rem;
+    font-size: 1rem; /* Smaller font to fit */
     font-weight: 700;
     color: var(--primary-dark);
     font-family: 'Inter', cursive; /* Handwritten feel */
+    white-space: nowrap; /* Prevent wrapping */
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .card-logo {
@@ -420,20 +424,45 @@ form {
     gap: 1.5rem;
 }
 
+.input-group {
+    position: relative;
+    width: 100%;
+}
+
 input[type="email"] {
-    padding: 1rem;
+    width: 100%;
+    padding: 1.25rem 1rem 0.5rem;
     border-radius: 12px;
     border: 1px solid var(--glass-border);
-    background: rgba(0, 0, 0, 0.2);
+    background: rgba(0, 0, 0, 0.3);
     color: white;
     font-family: inherit;
     font-size: 1rem;
     outline: none;
-    transition: border-color 0.3s;
+    transition: all 0.3s ease;
 }
 
 input[type="email"]:focus {
     border-color: var(--primary);
+    box-shadow: 0 0 15px rgba(104, 154, 187, 0.3);
+}
+
+.input-group label {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--text-muted);
+    font-size: 1rem;
+    transition: all 0.2s ease;
+    pointer-events: none;
+}
+
+input[type="email"]:focus + label,
+input[type="email"]:not(:placeholder-shown) + label {
+    top: 0.5rem;
+    font-size: 0.75rem;
+    color: var(--primary);
 }
 
 .submit-btn {
@@ -446,11 +475,38 @@ input[type="email"]:focus {
     font-weight: 700;
     cursor: pointer;
     transition: transform 0.2s, box-shadow 0.2s;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 52px; /* Prevent jitter during loading state */
 }
 
 .submit-btn:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(197, 17, 26, 0.4);
+}
+
+.submit-btn.loading .btn-text {
+    opacity: 0;
+}
+
+.submit-btn.loading .spinner {
+    display: block;
+}
+
+.spinner {
+    width: 20px;
+    height: 20px;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    border-top-color: white;
+    animation: spin 1s ease-in-out infinite;
+    position: absolute;
+}
+
+.spinner.hidden {
+    display: none;
 }
 
 /* ==========================================================================
@@ -474,5 +530,31 @@ input[type="email"]:focus {
     to {
         opacity: 1;
         transform: translateX(0) translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* ==========================================================================
+   8. MOBILE RESPONSIVENESS
+   ========================================================================== */
+@media (max-width: 768px) {
+    .state-shrunk .card {
+        transform: scale(0.6) translateY(-30%) translateX(0) !important;
+    }
+    
+    .events-container {
+        right: 0;
+        left: 0;
+        top: 45%;
+        align-items: center;
+        padding: 0 1rem;
+    }
+    
+    .event-card {
+        width: 100%;
+        max-width: 320px;
     }
 }

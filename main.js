@@ -94,25 +94,45 @@ document.addEventListener('DOMContentLoaded', () => {
   emailForm.addEventListener('submit', (e) => {
     e.preventDefault();
     const email = emailInput.value;
-    
-    Tracker.logEvent('email_submitted', { 
-      event_name: selectedCardEvent,
-      email: email // Note: in production, be mindful of PII logging
-    });
-
-    // Simulate success
     const btn = emailForm.querySelector('.submit-btn');
-    const originalText = btn.textContent;
-    btn.textContent = 'Success!';
-    btn.style.backgroundColor = '#10b981'; // Green
-
+    const btnText = btn.querySelector('.btn-text');
+    
+    // 1. Loading State
+    btn.classList.add('loading');
+    
+    // Simulate network request
     setTimeout(() => {
-      modal.classList.add('hidden');
-      // Reset form
-      emailForm.reset();
-      btn.textContent = originalText;
-      btn.style.backgroundColor = '';
-      selectedCardEvent = null;
-    }, 2000);
+      Tracker.logEvent('email_submitted', { 
+        event_name: selectedCardEvent,
+        email: email 
+      });
+
+      // 2. Success State & Confetti
+      btn.classList.remove('loading');
+      const originalText = btnText.textContent;
+      btnText.textContent = 'Success!';
+      btn.style.background = '#10b981'; // Green
+      
+      // Fire confetti burst
+      if (typeof confetti === 'function') {
+        confetti({
+          particleCount: 100,
+          spread: 70,
+          origin: { y: 0.6 },
+          colors: ['#689ABB', '#700907', '#ffffff']
+        });
+      }
+
+      // Reset after delay
+      setTimeout(() => {
+        modal.classList.add('hidden');
+        // Reset form
+        emailForm.reset();
+        btnText.textContent = originalText;
+        btn.style.background = ''; // restore original gradient
+        selectedCardEvent = null;
+      }, 2000);
+      
+    }, 1500); // 1.5 seconds loading simulation
   });
 });

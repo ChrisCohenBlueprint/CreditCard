@@ -63,13 +63,21 @@
           <button id="close-modal" class="close-btn">&times;</button>
           <h2 id="modal-title">Enter your email to claim your 10% credit off of this Event</h2>
           <form id="email-form">
-            <input type="email" id="email-input" placeholder="Your Email Address" required />
-            <button type="submit" class="submit-btn">Claim Offer</button>
+            <div class="input-group">
+              <input type="email" id="email-input" placeholder=" " required />
+              <label for="email-input">Your Email Address</label>
+            </div>
+            <button type="submit" class="submit-btn">
+              <span class="btn-text">Claim Offer</span>
+              <span class="spinner hidden"></span>
+            </button>
           </form>
         </div>
       </div>
       
     </div>
+    <!-- Confetti Script -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <script src="./main.js" defer></script>
   </body>
 </html>

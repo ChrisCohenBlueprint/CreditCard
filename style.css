@@ -341,18 +341,14 @@ body {
 
 /* Event cards using glassmorphism */
 .event-card {
-    padding: 2rem 2.5rem; /* Increased padding */
-    width: 400px; /* Increased from 300px */
+    padding: 2rem 2.5rem;
+    width: 400px;
     cursor: pointer;
-    opacity: 0;
     transition: all 0.3s ease;
     /* Light frosted glass override */
     background: rgba(255, 255, 255, 0.85);
     border-color: rgba(255, 255, 255, 0.8);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-    /* Stacked initially */
-    transform: translateX(20px) translateY(-50px) rotate(-10deg);
-    transform-origin: bottom left;
 }
 
 .event-card:hover {
@@ -385,13 +381,16 @@ body {
     background: linear-gradient(135deg, rgba(255,255,255,1), rgba(13, 148, 136, 0.1));
 }
 
-.state-shrunk .event-card {
+.state-shrunk .event-card-wrapper {
     animation: fanOut 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+    opacity: 0;
+    transform: translateX(20px) translateY(-50px) rotate(-10deg);
+    transform-origin: bottom left;
 }
 
-.state-shrunk .event-card:nth-child(1) { animation-delay: 0.6s; }
-.state-shrunk .event-card:nth-child(2) { animation-delay: 0.8s; }
-.state-shrunk .event-card:nth-child(3) { animation-delay: 1.0s; }
+.state-shrunk .event-card-wrapper:nth-child(1) { animation-delay: 0.6s; }
+.state-shrunk .event-card-wrapper:nth-child(2) { animation-delay: 0.8s; }
+.state-shrunk .event-card-wrapper:nth-child(3) { animation-delay: 1.0s; }
 
 .event-logo {
     width: 100%;
@@ -402,9 +401,46 @@ body {
 }
 
 .event-card p {
-    font-size: 1.1rem; /* Increased from 0.9rem */
-    color: #334155; /* Dark grey for readability on light background */
+    font-size: 1.1rem;
+    color: #334155;
     font-weight: 600;
+}
+
+/* Card wrapper holds button + footer */
+.event-card-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.card-footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 0.5rem;
+    gap: 1rem;
+}
+
+.visit-link {
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.7);
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: color 0.2s;
+    white-space: nowrap;
+}
+
+.visit-link:hover {
+    color: #ffd700;
+    text-decoration: underline;
+}
+
+.card-terms {
+    font-size: 0.7rem;
+    color: rgba(255, 255, 255, 0.35);
+    text-align: right;
+    font-style: italic;
 }
 
 /* ==========================================================================

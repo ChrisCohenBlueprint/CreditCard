@@ -335,6 +335,25 @@ body {
     z-index: 20;
 }
 
+/* Custom Regional Card Stylization */
+.event-card[data-event="Middle East"]:hover {
+    border-color: #e53935; /* Vibrant Red/Orange */
+    box-shadow: 0 10px 30px rgba(229, 57, 53, 0.3);
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(229, 57, 53, 0.1));
+}
+
+.event-card[data-event="North America"]:hover {
+    border-color: #b71c1c; /* Deep Red */
+    box-shadow: 0 10px 30px rgba(183, 28, 28, 0.3);
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(183, 28, 28, 0.1));
+}
+
+.event-card[data-event="Europe"]:hover {
+    border-color: #fbc02d; /* Bright Gold/Yellow */
+    box-shadow: 0 10px 30px rgba(251, 192, 45, 0.3);
+    background: linear-gradient(135deg, rgba(255,255,255,0.15), rgba(251, 192, 45, 0.1));
+}
+
 .state-shrunk .event-card {
     animation: fanOut 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }

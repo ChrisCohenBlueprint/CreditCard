@@ -16,6 +16,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const closeModalBtn = document.getElementById('close-modal');
   const emailForm = document.getElementById('email-form');
   const emailInput = document.getElementById('email-input');
+  const modalEventName = document.getElementById('modal-event-name');
+  const successBadge = document.getElementById('success-badge');
   
   // State
   let selectedCardEvent = null;
@@ -78,6 +80,11 @@ document.addEventListener('DOMContentLoaded', () => {
       selectedCardEvent = e.currentTarget.getAttribute('data-event');
       Tracker.logEvent('event_selected', { event_name: selectedCardEvent });
       
+      // Update modal title dynamically with the event name
+      if (modalEventName) {
+        modalEventName.textContent = `Lubricant Expo ${selectedCardEvent}`;
+      }
+
       // Show Modal
       modal.classList.remove('hidden');
     });
@@ -123,13 +130,18 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }
 
+      // Show persistent success badge
+      if (successBadge) {
+        successBadge.classList.remove('hidden');
+        setTimeout(() => successBadge.classList.add('hidden'), 6000);
+      }
+
       // Reset after delay
       setTimeout(() => {
         modal.classList.add('hidden');
-        // Reset form
         emailForm.reset();
         btnText.textContent = originalText;
-        btn.style.background = ''; // restore original gradient
+        btn.style.background = '';
         selectedCardEvent = null;
       }, 2000);
       

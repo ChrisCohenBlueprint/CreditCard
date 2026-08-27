@@ -299,7 +299,8 @@ body {
 
 .state-shrunk .card {
     transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-    transform: scale(0.85) translateX(-30%) !important; /* Bigger, less squished */
+    /* Move card well to the left so it doesn't overlap event cards */
+    transform: scale(0.8) translateX(-65%) !important;
     cursor: default;
 }
 .state-shrunk .card:hover .card-glare {
@@ -311,7 +312,7 @@ body {
    ========================================================================== */
 .events-container {
     position: absolute;
-    right: 15%;
+    right: 5%; /* Pushed closer to right edge so no card overlap */
     display: flex;
     flex-direction: column;
     gap: 1.5rem;
@@ -350,23 +351,26 @@ body {
     z-index: 20;
 }
 
-/* Custom Regional Card Stylization */
+/* Custom Regional Card Stylization — clearly distinct per region */
 .event-card[data-event="Middle East"]:hover {
-    border-color: #e53935; /* Vibrant Red/Orange */
-    box-shadow: 0 15px 40px rgba(229, 57, 53, 0.3);
-    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(229, 57, 53, 0.15));
+    /* Orange — matches the vibrant orange circle in the Middle East logo */
+    border-color: #f97316;
+    box-shadow: 0 15px 40px rgba(249, 115, 22, 0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(249, 115, 22, 0.12));
 }
 
 .event-card[data-event="North America"]:hover {
-    border-color: #b71c1c; /* Deep Red */
-    box-shadow: 0 15px 40px rgba(183, 28, 28, 0.3);
-    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(183, 28, 28, 0.15));
+    /* Dark Navy Blue — matches the deep navy gear in the North America logo */
+    border-color: #1e40af;
+    box-shadow: 0 15px 40px rgba(30, 64, 175, 0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(30, 64, 175, 0.1));
 }
 
 .event-card[data-event="Europe"]:hover {
-    border-color: #fbc02d; /* Bright Gold/Yellow */
-    box-shadow: 0 15px 40px rgba(251, 192, 45, 0.3);
-    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(251, 192, 45, 0.15));
+    /* Teal — matches the teal gear in the Europe logo */
+    border-color: #0d9488;
+    box-shadow: 0 15px 40px rgba(13, 148, 136, 0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(13, 148, 136, 0.1));
 }
 
 .state-shrunk .event-card {
@@ -621,87 +625,37 @@ input[type="email"]:not(:placeholder-shown) + label {
    MOBILE RESPONSIVENESS
    ========================================================================== */
 @media (max-width: 768px) {
+    /* Scale the whole scene down to fit narrow screens */
     #app {
-        height: auto;
-        min-height: 100vh;
-        overflow-y: auto;
-        padding: 2rem 0;
+        align-items: center;
+        justify-content: center;
     }
 
     .scene {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        gap: 2rem;
+        transform: scale(0.7);
+        transform-origin: center center;
+    }
+
+    /* Event cards fit the scaled-down scene */
+    .event-card {
+        width: 340px;
+    }
+
+    /* Modal takes full width on mobile */
+    .modal-overlay {
         padding: 1rem;
     }
 
-    /* Card stays centered and normally sized on mobile */
-    .card {
-        position: relative !important;
-        width: 340px;
-        height: 210px;
-        left: auto !important;
-        right: auto !important;
-    }
-
-    /* After shrink on mobile: don't slide off screen, just stay centered */
-    .state-shrunk .card {
-        transform: scale(1) !important;
-        cursor: default;
-    }
-
-    /* Events stack below the card, and START hidden just like desktop */
-    .events-container {
-        position: relative !important;
-        right: auto !important;
-        top: auto !important;
-        left: auto !important;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        max-width: 400px;
-        padding: 0;
-        gap: 1rem;
-        pointer-events: none;
-    }
-
-    /* Event cards hidden by default on mobile too */
-    .event-card {
-        width: 100%;
-        padding: 1.5rem 2rem;
-        /* Keep cards hidden initially — same as desktop */
-        opacity: 0;
-        transform: translateY(20px);
-    }
-
-    /* Reveal event cards after state-shrunk on mobile */
-    .state-shrunk .events-container {
-        pointer-events: auto;
-    }
-
-    .state-shrunk .event-card {
-        animation: mobileReveal 0.5s ease forwards;
-    }
-
-    .state-shrunk .event-card:nth-child(1) { animation-delay: 0.6s; }
-    .state-shrunk .event-card:nth-child(2) { animation-delay: 0.8s; }
-    .state-shrunk .event-card:nth-child(3) { animation-delay: 1.0s; }
-
-    .event-logo {
-        max-height: 60px;
-    }
-
     .modal-content {
-        margin: 1rem;
         padding: 1.5rem;
+        max-width: 100%;
     }
 
     .success-badge {
-        font-size: 0.95rem;
-        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+        padding: 0.75rem 1.25rem;
         bottom: 1rem;
+        text-align: center;
     }
 }
 

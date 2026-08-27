@@ -118,6 +118,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const modalEventName = document.getElementById('modal-event-name');
   const successBadge = document.getElementById('success-badge');
   const claimBtn = document.getElementById('claim-btn');
+  const modalVisitLink = document.getElementById('modal-visit-link');
   // ED elements
   const edPhoto = document.getElementById('ed-photo');
   const edQuote = document.getElementById('ed-quote');
@@ -215,6 +216,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (claimBtn) {
         claimBtn.style.background = color;
         claimBtn.style.boxShadow = `0 8px 25px ${color}66`;
+      }
+
+      // Update secondary Visit Website link
+      if (modalVisitLink) {
+        const visitLink = el.parentElement.querySelector('.visit-link');
+        if (visitLink) {
+          modalVisitLink.href = visitLink.href;
+        }
       }
 
       // Show Modal

@@ -627,7 +627,26 @@ input[type="email"]:not(:placeholder-shown) + label {
 
 .submit-btn:hover {
     transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(197, 17, 26, 0.4);
+    box-shadow: 0 8px 25px rgba(197, 17, 26, 0.4);
+}
+
+.secondary-btn {
+    display: block;
+    width: 100%;
+    padding: 1rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    transition: all 0.2s ease;
+}
+
+.secondary-btn:hover {
+    background: rgba(255,255,255,0.1);
+    color: #fff;
 }
 
 .submit-btn.loading .btn-text {

@@ -162,6 +162,19 @@ document.addEventListener('DOMContentLoaded', () => {
   // Track initial page load
   Tracker.logEvent('page_view', { path: '/' });
 
+  // Color each "Visit Website" link to match its event's accent color
+  document.querySelectorAll('.event-card-wrapper').forEach(wrapper => {
+    const btn = wrapper.querySelector('.event-card');
+    const link = wrapper.querySelector('.visit-link');
+    if (btn && link) {
+      const color = btn.getAttribute('data-color');
+      if (color) {
+        link.style.color = color;
+        link.style.fontWeight = '700';
+      }
+    }
+  });
+
   // Handle Main Card Tap
   mainCard.addEventListener('click', () => {
     // Only process if it hasn't been flipped/shrunk yet

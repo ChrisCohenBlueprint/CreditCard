@@ -424,16 +424,17 @@ body {
 .visit-link {
     font-size: 0.8rem;
     font-weight: 600;
+    /* Base color gets overridden by JS */
     color: rgba(255, 255, 255, 0.7);
     text-decoration: none;
     letter-spacing: 0.3px;
-    transition: color 0.2s;
+    transition: all 0.2s;
     white-space: nowrap;
 }
 
 .visit-link:hover {
-    color: #ffd700;
     text-decoration: underline;
+    opacity: 0.8;
 }
 
 .card-terms {

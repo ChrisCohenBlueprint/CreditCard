@@ -50,15 +50,33 @@
 
         <!-- Event Cards Container -->
         <div id="events-container" class="events-container" role="list">
-          <button class="event-card glass" data-event="Middle East" aria-label="Select Middle East Event" role="listitem">
+          <button class="event-card glass" data-event="Middle East"
+            data-color="#f97316"
+            data-ed-name="Sarah Al-Rashid"
+            data-ed-title="Event Director, Lubricant Expo Middle East"
+            data-ed-quote="We're thrilled to welcome you to Lubricant Expo Middle East. Claim your exclusive 10% discount and join the industry's most exciting gathering in the region."
+            data-ed-image="./assets/ed-middle-east.png"
+            aria-label="Select Middle East Event" role="listitem">
             <img src="./assets/logo-middle-east.svg" alt="Lubricant Expo Middle East" class="event-logo">
             <p>Click here to select this event</p>
           </button>
-          <button class="event-card glass" data-event="North America" aria-label="Select North America Event" role="listitem">
+          <button class="event-card glass" data-event="North America"
+            data-color="#1e40af"
+            data-ed-name="Michael Thompson"
+            data-ed-title="Event Director, Lubricant Expo North America"
+            data-ed-quote="As Event Director, I'm delighted to extend this exclusive offer to you. Lubricant Expo North America is the premier destination for the lubrication industry — we'd love to see you there."
+            data-ed-image="./assets/ed-north-america.png"
+            aria-label="Select North America Event" role="listitem">
             <img src="./assets/logo-north-america.svg" alt="Lubricant Expo North America" class="event-logo">
             <p>Click here to select this event</p>
           </button>
-          <button class="event-card glass" data-event="Europe" aria-label="Select Europe Event" role="listitem">
+          <button class="event-card glass" data-event="Europe"
+            data-color="#0d9488"
+            data-ed-name="Klaus Weber"
+            data-ed-title="Event Director, Lubricant Expo Europe"
+            data-ed-quote="Lubricant Expo Europe brings together the world's leading lubrication professionals. I personally invite you to join us and take advantage of this special 10% discount."
+            data-ed-image="./assets/ed-europe.png"
+            aria-label="Select Europe Event" role="listitem">
             <img src="./assets/logo-europe.svg" alt="Lubricant Expo Europe" class="event-logo">
             <p>Click here to select this event</p>
           </button>
@@ -69,13 +87,28 @@
       <div id="email-modal" class="modal-overlay hidden" role="dialog" aria-labelledby="modal-title" aria-modal="true">
         <div class="modal-content glass">
           <button id="close-modal" class="close-btn" aria-label="Close dialog">&times;</button>
+
+          <!-- ED Welcome Section -->
+          <div class="ed-section">
+            <img id="ed-photo" src="" alt="Event Director" class="ed-photo">
+            <div class="ed-message">
+              <p id="ed-quote" class="ed-quote"></p>
+              <div class="ed-byline">
+                <strong id="ed-name"></strong>
+                <span id="ed-title"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-divider"></div>
+
           <h2 id="modal-title">Claim your 10% credit off <span id="modal-event-name">this Event</span></h2>
           <form id="email-form">
             <div class="input-group">
               <input type="email" id="email-input" name="email" placeholder=" " required autocomplete="email" />
               <label for="email-input">Your Email Address</label>
             </div>
-            <button type="submit" class="submit-btn" aria-live="polite">
+            <button type="submit" class="submit-btn" id="claim-btn" aria-live="polite">
               <span class="btn-text">Claim Offer</span>
               <span class="spinner hidden" aria-hidden="true"></span>
             </button>

@@ -433,9 +433,9 @@ body {
 }
 
 .modal-content {
-    padding: 3rem;
+    padding: 2.5rem;
     width: 90%;
-    max-width: 450px;
+    max-width: 560px; /* Wider to fit ED section */
     position: relative;
     transform: translateY(20px);
     transition: transform 0.3s ease;
@@ -463,9 +463,63 @@ body {
     opacity: 1;
 }
 
+/* ED Welcome Section */
+.ed-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    text-align: left;
+    margin-bottom: 1rem;
+}
+
+.ed-photo {
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+    border: 3px solid rgba(255,255,255,0.3);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+}
+
+.ed-message {
+    flex: 1;
+}
+
+.ed-quote {
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: rgba(255,255,255,0.8);
+    font-style: italic;
+    margin-bottom: 0.6rem;
+}
+
+.ed-byline {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+}
+
+.ed-byline strong {
+    font-size: 0.9rem;
+    color: #fff;
+    font-weight: 700;
+}
+
+.ed-byline span {
+    font-size: 0.75rem;
+    color: rgba(255,255,255,0.5);
+}
+
+.modal-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.15);
+    margin: 1.25rem 0;
+}
+
 .modal-content h2 {
-    font-size: 1.25rem;
-    margin-bottom: 2rem;
+    font-size: 1.15rem;
+    margin-bottom: 1.5rem;
     line-height: 1.5;
     font-weight: 500;
 }

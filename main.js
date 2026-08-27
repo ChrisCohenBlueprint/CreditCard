@@ -117,6 +117,12 @@ document.addEventListener('DOMContentLoaded', () => {
   const emailInput = document.getElementById('email-input');
   const modalEventName = document.getElementById('modal-event-name');
   const successBadge = document.getElementById('success-badge');
+  const claimBtn = document.getElementById('claim-btn');
+  // ED elements
+  const edPhoto = document.getElementById('ed-photo');
+  const edQuote = document.getElementById('ed-quote');
+  const edName = document.getElementById('ed-name');
+  const edTitle = document.getElementById('ed-title');
   
   // State
   let selectedCardEvent = null;
@@ -176,12 +182,26 @@ document.addEventListener('DOMContentLoaded', () => {
   // Handle Event Card Click
   eventCards.forEach(card => {
     card.addEventListener('click', (e) => {
-      selectedCardEvent = e.currentTarget.getAttribute('data-event');
+      const el = e.currentTarget;
+      selectedCardEvent = el.getAttribute('data-event');
       Tracker.logEvent('event_selected', { event_name: selectedCardEvent });
-      
-      // Update modal title dynamically with the event name
+
+      // Update modal title
       if (modalEventName) {
         modalEventName.textContent = `Lubricant Expo ${selectedCardEvent}`;
+      }
+
+      // Update ED section
+      const color = el.getAttribute('data-color') || '#700907';
+      if (edPhoto) edPhoto.src = el.getAttribute('data-ed-image') || '';
+      if (edQuote) edQuote.textContent = `"${el.getAttribute('data-ed-quote')}"`;
+      if (edName) edName.textContent = el.getAttribute('data-ed-name');
+      if (edTitle) edTitle.textContent = el.getAttribute('data-ed-title');
+
+      // Color the claim button and ED accent to match the event
+      if (claimBtn) {
+        claimBtn.style.background = color;
+        claimBtn.style.boxShadow = `0 8px 25px ${color}66`;
       }
 
       // Show Modal

@@ -6,8 +6,8 @@
   if (!canvas) return;
   const ctx = canvas.getContext('2d');
 
-  const GOLD_COLORS = ['#ffd700', '#f5c542', '#d4af37', '#ffe066', '#ffc200', '#fff0a0'];
-  const PARTICLE_COUNT = 80;
+  const GOLD_COLORS = ['#ffd700', '#f5c542', '#d4af37', '#ffe066', '#ffc200'];
+  const PARTICLE_COUNT = 50; // Reduced from 80
   let particles = [];
   let W, H;
 
@@ -21,20 +21,19 @@
   function randomBetween(a, b) { return a + Math.random() * (b - a); }
 
   function createParticle() {
-    const size = randomBetween(1, 4);
+    const size = randomBetween(0.8, 2.5); // Smaller
     return {
       x: randomBetween(0, W),
       y: randomBetween(0, H),
       size,
       baseSize: size,
       color: GOLD_COLORS[Math.floor(Math.random() * GOLD_COLORS.length)],
-      alpha: randomBetween(0.1, 0.8),
-      speedX: randomBetween(-0.3, 0.3),
-      speedY: randomBetween(-0.5, -0.1), // drift upward slowly
-      twinkleSpeed: randomBetween(0.005, 0.02),
+      alpha: randomBetween(0.05, 0.35), // Much dimmer
+      speedX: randomBetween(-0.08, 0.08), // Much slower drift
+      speedY: randomBetween(-0.12, -0.03), // Barely moving upward
+      twinkleSpeed: randomBetween(0.4, 1.2), // Slower twinkle (seconds per cycle)
       twinklePhase: randomBetween(0, Math.PI * 2),
-      // Some particles are 4-pointed star shapes
-      isStar: Math.random() > 0.5,
+      isStar: Math.random() > 0.6,
     };
   }
 
@@ -43,9 +42,8 @@
     ctx.globalAlpha = alpha;
     ctx.fillStyle = color;
     ctx.shadowColor = color;
-    ctx.shadowBlur = size * 3;
+    ctx.shadowBlur = size * 2;
     ctx.beginPath();
-    // 4-pointed star
     for (let i = 0; i < 4; i++) {
       const angle = (i / 4) * Math.PI * 2;
       const outerX = x + Math.cos(angle) * size * 2;
@@ -67,7 +65,7 @@
     ctx.globalAlpha = alpha;
     ctx.fillStyle = color;
     ctx.shadowColor = color;
-    ctx.shadowBlur = size * 4;
+    ctx.shadowBlur = size * 2;
     ctx.beginPath();
     ctx.arc(x, y, size, 0, Math.PI * 2);
     ctx.fill();
@@ -78,16 +76,15 @@
     particles.push(createParticle());
   }
 
-  let animFrame;
   function animate() {
     ctx.clearRect(0, 0, W, H);
     const now = Date.now() * 0.001;
 
     particles.forEach(p => {
-      // Twinkle
-      const twinkle = 0.5 + 0.5 * Math.sin(now / p.twinkleSpeed + p.twinklePhase);
+      // Very slow, gentle twinkle
+      const twinkle = 0.5 + 0.5 * Math.sin((now / p.twinkleSpeed) + p.twinklePhase);
       const currentAlpha = p.alpha * twinkle;
-      const currentSize = p.baseSize * (0.7 + 0.3 * twinkle);
+      const currentSize = p.baseSize * (0.8 + 0.2 * twinkle);
 
       if (p.isStar) {
         drawStar(ctx, p.x, p.y, currentSize, currentAlpha, p.color);
@@ -95,17 +92,15 @@
         drawDot(ctx, p.x, p.y, currentSize, currentAlpha, p.color);
       }
 
-      // Move
       p.x += p.speedX;
       p.y += p.speedY;
 
-      // Wrap around edges
       if (p.y < -10) p.y = H + 10;
       if (p.x < -10) p.x = W + 10;
       if (p.x > W + 10) p.x = -10;
     });
 
-    animFrame = requestAnimationFrame(animate);
+    requestAnimationFrame(animate);
   }
   animate();
 })();

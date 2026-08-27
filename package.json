@@ -1,0 +1,8 @@
+{
+  "name": "creditcard-static",
+  "version": "1.0.0",
+  "description": "Static site for Render",
+  "scripts": {
+    "build": "echo 'Static site - no build required'"
+  }
+}

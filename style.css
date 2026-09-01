@@ -341,15 +341,18 @@ body {
 
 .tap-hint {
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
-    font-size: 0.8rem;
-    opacity: 0.7;
+    top: 290px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.9rem;
+    opacity: 0.8;
     display: flex;
     align-items: center;
     gap: 6px;
     font-weight: 600;
     letter-spacing: 0.5px;
+    z-index: 10;
+    transition: opacity 0.3s ease;
 }
 
 .tap-pulse {
@@ -379,6 +382,11 @@ body {
 }
 .state-shrunk .card:hover .card-glare {
     opacity: 0;
+}
+.state-flipped .tap-hint,
+.state-shrunk .tap-hint {
+    opacity: 0;
+    pointer-events: none;
 }
 
 /* ==========================================================================

@@ -332,10 +332,10 @@ body {
 }
 
 .card-company-logo {
-    width: 180px;
+    width: 200px;
     height: auto;
     margin-top: 1rem;
-    filter: brightness(1.2) drop-shadow(0 0 15px rgba(104, 154, 187, 0.8)) drop-shadow(0 0 25px rgba(104, 154, 187, 0.5));
+    filter: brightness(3) saturate(0) invert(1) drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 35px rgba(104, 154, 187, 0.8)) drop-shadow(0 0 50px rgba(255, 215, 0, 0.4));
     animation: logoGlow 3s ease-in-out infinite;
 }
 
@@ -778,10 +778,10 @@ input[type="email"]:not(:placeholder-shown) + label {
 
 @keyframes logoGlow {
     0%, 100% {
-        filter: brightness(1.2) drop-shadow(0 0 15px rgba(104, 154, 187, 0.8)) drop-shadow(0 0 25px rgba(104, 154, 187, 0.5));
+        filter: brightness(3) saturate(0) invert(1) drop-shadow(0 0 20px rgba(255, 255, 255, 0.9)) drop-shadow(0 0 35px rgba(104, 154, 187, 0.8)) drop-shadow(0 0 50px rgba(255, 215, 0, 0.4));
     }
     50% {
-        filter: brightness(1.4) drop-shadow(0 0 20px rgba(104, 154, 187, 1)) drop-shadow(0 0 35px rgba(104, 154, 187, 0.7)) drop-shadow(0 0 50px rgba(255, 215, 0, 0.3));
+        filter: brightness(3.5) saturate(0) invert(1) drop-shadow(0 0 30px rgba(255, 255, 255, 1)) drop-shadow(0 0 50px rgba(104, 154, 187, 1)) drop-shadow(0 0 70px rgba(255, 215, 0, 0.6));
     }
 }
 

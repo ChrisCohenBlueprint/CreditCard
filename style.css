@@ -165,6 +165,12 @@ body {
     width: 100%;
     height: 100%;
     position: absolute;
+    /* Both faces must be pinned to the top-left of .card-inner. Without these
+       the back face falls back to its static position, which is one full card
+       height below the front face — the card then paints ~200px too low once
+       it is flipped. */
+    top: 0;
+    left: 0;
     backface-visibility: hidden;
     overflow: hidden;
 }
@@ -181,7 +187,9 @@ body {
         0 0 40px rgba(255, 215, 0, 0.3),
         0 0 80px rgba(104, 154, 187, 0.2),
         0 25px 50px rgba(0, 0, 0, 0.5);
-    position: relative;
+    /* No position override here: the shared rule's `position: absolute` already
+       contains .card-front::before, and making this `relative` pushes the back
+       face out of place. */
     overflow: hidden;
 }
 

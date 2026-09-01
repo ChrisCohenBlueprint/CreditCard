@@ -181,10 +181,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // Only process if it hasn't been flipped/shrunk yet
     if (!app.classList.contains('state-flipped')) {
       Tracker.logEvent('card_tapped');
-      
+
+      // Clear any inline transform styles from hover effects
+      mainCard.style.transform = '';
+
       // Step 1: Flip
       app.classList.add('state-flipped');
-      
+
       // Step 2: Shrink and reveal events after a short delay
       setTimeout(() => {
         app.classList.add('state-shrunk');

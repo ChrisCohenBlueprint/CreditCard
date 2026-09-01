@@ -132,20 +132,20 @@ document.addEventListener('DOMContentLoaded', () => {
   const cardGlare = document.querySelector('.card-glare');
   mainCard.addEventListener('mousemove', (e) => {
     if (app.classList.contains('state-flipped')) return; // Disable hover tilt after flip
-    
+
     const rect = mainCard.getBoundingClientRect();
     const x = e.clientX - rect.left; // x position within the element.
     const y = e.clientY - rect.top;  // y position within the element.
-    
+
     // Calculate rotation limits (max 15 degrees)
     const xPct = (x / rect.width) - 0.5;
     const yPct = (y / rect.height) - 0.5;
-    
+
     const rotateY = xPct * 30; // Max 15deg left/right
     const rotateX = -yPct * 30; // Max 15deg up/down
-    
-    mainCard.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
-    
+
+    mainCard.style.transform = `translate(-50%, -50%) perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`;
+
     // Move glare
     if (cardGlare) {
       cardGlare.style.background = `radial-gradient(circle at ${x}px ${y}px, rgba(255,255,255,0.4) 0%, transparent 60%)`;
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   mainCard.addEventListener('mouseleave', () => {
     if (app.classList.contains('state-flipped')) return;
-    mainCard.style.transform = `perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
+    mainCard.style.transform = `translate(-50%, -50%) perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
     if (cardGlare) {
       cardGlare.style.background = `radial-gradient(circle at 50% 50%, rgba(255,255,255,0.4) 0%, transparent 60%)`;
     }

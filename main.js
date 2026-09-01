@@ -176,6 +176,52 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  // Pin the shrunk credit card to the same horizontal axis as the middle
+  // (North America) event card. Measured, not assumed: the events column is
+  // centred as a whole, but each wrapper carries a footer below its card, so
+  // the column's centre sits ~12px below the middle card's centre.
+  const scene = document.querySelector('.scene');
+  const middleEventCard = eventCards[1];
+  const middleEventWrapper = middleEventCard && middleEventCard.closest('.event-card-wrapper');
+
+  const alignCardWithMiddleEvent = () => {
+    if (!scene || !middleEventCard) return;
+    const sceneRect = scene.getBoundingClientRect();
+    // .scene is scaled down on mobile — convert viewport px back to local px.
+    const scale = scene.offsetWidth ? sceneRect.width / scene.offsetWidth : 1;
+    if (!scale) return;
+    const targetRect = middleEventCard.getBoundingClientRect();
+    const targetCentre = targetRect.top + targetRect.height / 2;
+
+    if (app.classList.contains('state-shrunk')) {
+      // Already in place: correct by whatever gap is actually on screen, so
+      // the result doesn't depend on assumptions about the card's containing
+      // block or how its transform resolves.
+      const cardRect = mainCard.getBoundingClientRect();
+      const residual = targetCentre - (cardRect.top + cardRect.height / 2);
+      if (Math.abs(residual) < 0.5) return;
+      const currentTop = parseFloat(getComputedStyle(mainCard).top) || 0;
+      mainCard.style.setProperty('--card-top', `${currentTop + residual / scale}px`);
+    } else {
+      // The card is translate(-50%, -50%)'d, so its `top` IS its centre.
+      mainCard.style.setProperty('--card-top', `${(targetCentre - sceneRect.top) / scale}px`);
+    }
+  };
+
+  // Measure up front (event cards are laid out but untransformed at this
+  // point) so the card lands in the right place with no extra movement.
+  alignCardWithMiddleEvent();
+  window.addEventListener('resize', alignCardWithMiddleEvent);
+  window.addEventListener('load', alignCardWithMiddleEvent);
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(alignCardWithMiddleEvent);
+  }
+  // Re-check once the fan-out has settled — by then both the card and the
+  // event cards are at rest, so any leftover gap can be measured and removed.
+  if (middleEventWrapper) {
+    middleEventWrapper.addEventListener('animationend', alignCardWithMiddleEvent);
+  }
+
   // Handle Main Card Tap
   mainCard.addEventListener('click', () => {
     // Only process if it hasn't been flipped/shrunk yet

@@ -341,7 +341,7 @@ body {
 
 .tap-hint {
     position: absolute;
-    top: 290px;
+    top: calc(50% + 155px);
     left: 50%;
     transform: translateX(-50%);
     font-size: 0.9rem;

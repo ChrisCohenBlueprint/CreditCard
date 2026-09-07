@@ -266,29 +266,59 @@ body {
     box-shadow: 0 2px 5px rgba(0,0,0,0.5);
 }
 
-.signature-strip {
-    width: 80%;
-    height: 40px;
-    background: #fff;
-    margin: 20px auto 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 1rem;
+/* Premium gold-on-dark offer panel, replacing the plain signature strip */
+.offer-panel {
+    width: 82%;
+    margin: 22px auto 0;
+    padding: 0.9rem 1.25rem 1.1rem;
     position: relative;
-    box-shadow: inset 0 0 5px rgba(0,0,0,0.2);
-    /* Repeater pattern for signature box realism */
-    background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0,0,0,0.05) 5px, rgba(0,0,0,0.05) 10px);
+    text-align: center;
+    background: linear-gradient(160deg, rgba(255,215,0,0.08), rgba(255,255,255,0.02));
+    border: 1px solid rgba(255, 215, 0, 0.35);
+    border-radius: 10px;
+    box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,0.03),
+        0 0 20px rgba(255, 215, 0, 0.12);
+}
+
+.offer-eyebrow {
+    display: block;
+    font-size: 0.62rem;
+    font-weight: 700;
+    letter-spacing: 1.6px;
+    text-transform: uppercase;
+    color: #ffd700;
+    opacity: 0.85;
+    margin-bottom: 0.35rem;
 }
 
 .offer-text {
-    font-size: 1rem; /* Smaller font to fit */
+    font-size: 1.05rem;
     font-weight: 700;
-    color: var(--primary-dark);
-    font-family: 'Inter', cursive; /* Handwritten feel */
-    white-space: nowrap; /* Prevent wrapping */
-    overflow: hidden;
-    text-overflow: ellipsis;
+    line-height: 1.3;
+    color: #f5f5f5;
+    letter-spacing: 0.2px;
+}
+
+.offer-highlight {
+    color: #ffd700;
+    font-weight: 800;
+}
+
+.offer-rule {
+    display: block;
+    width: 32px;
+    height: 1px;
+    margin: 0.55rem auto;
+    background: rgba(255, 215, 0, 0.4);
+}
+
+.offer-note {
+    display: block;
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    color: rgba(255, 255, 255, 0.55);
 }
 
 .card-logo {
@@ -373,13 +403,6 @@ body {
     font-size: 1rem;
 }
 
-.offer-text {
-    font-size: 1.5rem;
-    font-weight: 700;
-    line-height: 1.4;
-    color: var(--primary);
-}
-
 /* State Classes for Animations */
 .state-flipped .card-inner {
     transform: rotateY(180deg);
@@ -449,26 +472,27 @@ body {
     z-index: 20;
 }
 
-/* Custom Regional Card Stylization — clearly distinct per region */
+/* Custom Regional Card Stylization — each region's own brand hex, taken
+   directly from its logo artwork (assets/logo-*.svg), not an approximation */
 .event-card[data-event="Middle East"]:hover {
-    /* Orange — matches the vibrant orange circle in the Middle East logo */
-    border-color: #f97316;
-    box-shadow: 0 15px 40px rgba(249, 115, 22, 0.35);
-    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(249, 115, 22, 0.12));
+    /* Red — Lubricant Expo Middle East brand red */
+    border-color: #cf0c03;
+    box-shadow: 0 15px 40px rgba(207, 12, 3, 0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(207, 12, 3, 0.1));
 }
 
 .event-card[data-event="North America"]:hover {
-    /* Dark Navy Blue — matches the deep navy gear in the North America logo */
-    border-color: #1e40af;
-    box-shadow: 0 15px 40px rgba(30, 64, 175, 0.35);
-    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(30, 64, 175, 0.1));
+    /* Deep navy — Lubricant Expo North America brand navy */
+    border-color: #023149;
+    box-shadow: 0 15px 40px rgba(2, 49, 73, 0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(2, 49, 73, 0.1));
 }
 
 .event-card[data-event="Europe"]:hover {
-    /* Teal — matches the teal gear in the Europe logo */
-    border-color: #0d9488;
-    box-shadow: 0 15px 40px rgba(13, 148, 136, 0.35);
-    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(13, 148, 136, 0.1));
+    /* Teal — Lubricant Expo Europe brand teal */
+    border-color: #2d6a84;
+    box-shadow: 0 15px 40px rgba(45, 106, 132, 0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(45, 106, 132, 0.1));
 }
 
 .state-shrunk .event-card-wrapper {
@@ -486,8 +510,17 @@ body {
     width: 100%;
     max-height: 85px; /* Increased from 50px */
     object-fit: contain;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.6rem;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+}
+
+.event-dates {
+    display: block;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.4px;
+    color: #64748b;
+    margin-bottom: 1rem;
 }
 
 .event-card p {

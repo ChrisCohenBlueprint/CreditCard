@@ -6,10 +6,6 @@
     <meta name="description" content="Exclusive VIP Credit Card Event Offer. Claim your 10% credit off your selected show." />
     <meta name="theme-color" content="#1a0505" />
     <title>Premium Credit Card Offer</title>
-    <!-- Preconnect to Google Fonts for performance -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="./style.css">
   </head>
   <body>
@@ -40,8 +36,11 @@
             </div>
             <div class="card-back glass">
               <div class="magnetic-stripe"></div>
-              <div class="signature-strip">
-                <span class="offer-text">10% off your selected show!</span>
+              <div class="offer-panel">
+                <span class="offer-eyebrow">Exclusive VIP offer</span>
+                <p class="offer-text">Choose a show for <span class="offer-highlight">10% off</span></p>
+                <span class="offer-rule" aria-hidden="true"></span>
+                <span class="offer-note">Lubricant Expo 2027</span>
               </div>
             </div>
           </div>
@@ -53,13 +52,15 @@
 
           <div class="event-card-wrapper">
             <button class="event-card glass" data-event="Middle East"
-              data-color="#f97316"
+              data-color="#cf0c03"
+              data-color-link="#f4483a"
               data-ed-name="Sarah Al-Rashid"
               data-ed-title="Event Director, Lubricant Expo Middle East"
               data-ed-quote="We're thrilled to welcome you to Lubricant Expo Middle East. Claim your exclusive 10% discount and join the industry's most exciting gathering in the region."
               data-ed-image="./assets/ed-middle-east.png"
               aria-label="Select Middle East Event" role="listitem">
               <img src="./assets/logo-middle-east.svg" alt="Lubricant Expo Middle East" class="event-logo">
+              <span class="event-dates">13&ndash;15 April 2027 &middot; Dubai</span>
               <p>Click here to select this event</p>
             </button>
             <div class="card-footer">
@@ -70,13 +71,15 @@
 
           <div class="event-card-wrapper">
             <button class="event-card glass" data-event="North America"
-              data-color="#1e40af"
+              data-color="#023149"
+              data-color-link="#4a9fd4"
               data-ed-name="Michael Thompson"
               data-ed-title="Event Director, Lubricant Expo North America"
               data-ed-quote="As Event Director, I'm delighted to extend this exclusive offer to you. Lubricant Expo North America is the premier destination for the lubrication industry — we'd love to see you there."
               data-ed-image="./assets/ed-north-america.png"
               aria-label="Select North America Event" role="listitem">
               <img src="./assets/logo-north-america.svg" alt="Lubricant Expo North America" class="event-logo">
+              <span class="event-dates">9&ndash;10 March 2027 &middot; Houston</span>
               <p>Click here to select this event</p>
             </button>
             <div class="card-footer">
@@ -87,13 +90,15 @@
 
           <div class="event-card-wrapper">
             <button class="event-card glass" data-event="Europe"
-              data-color="#0d9488"
+              data-color="#2d6a84"
+              data-color-link="#6bb7d8"
               data-ed-name="Klaus Weber"
               data-ed-title="Event Director, Lubricant Expo Europe"
               data-ed-quote="Lubricant Expo Europe brings together the world's leading lubrication professionals. I personally invite you to join us and take advantage of this special 10% discount."
               data-ed-image="./assets/ed-europe.png"
               aria-label="Select Europe Event" role="listitem">
               <img src="./assets/logo-europe.svg" alt="Lubricant Expo Europe" class="event-logo">
+              <span class="event-dates">15&ndash;17 September 2026 &middot; D&uuml;sseldorf</span>
               <p>Click here to select this event</p>
             </button>
             <div class="card-footer">

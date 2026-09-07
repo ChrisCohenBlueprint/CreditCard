@@ -508,7 +508,9 @@ body {
 
 .event-logo {
     width: 100%;
-    max-height: 85px; /* Increased from 50px */
+    /* New logo artwork has the dates baked in (taller, ~1.84:1 vs the old
+       3.29:1 wordmark), so it needs more height to read at a normal size. */
+    max-height: 145px;
     object-fit: contain;
     margin-bottom: 1.25rem;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));

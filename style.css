@@ -440,7 +440,7 @@ body {
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.1rem;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.5s ease 0.5s;
@@ -454,7 +454,7 @@ body {
 
 /* Event cards using glassmorphism */
 .event-card {
-    padding: 2rem 2.5rem;
+    padding: 1.5rem 2.5rem;
     width: 400px;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -472,27 +472,27 @@ body {
     z-index: 20;
 }
 
-/* Custom Regional Card Stylization — each region's own brand hex, taken
-   directly from its logo artwork (assets/logo-*.svg), not an approximation */
+/* Custom Regional Card Stylization — each region's official button hex,
+   supplied directly (LME Orange, LNA Blue, LEX Blue) */
 .event-card[data-event="Middle East"]:hover {
-    /* Red — Lubricant Expo Middle East brand red */
-    border-color: #cf0c03;
-    box-shadow: 0 15px 40px rgba(207, 12, 3, 0.35);
-    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(207, 12, 3, 0.1));
+    /* LME Orange */
+    border-color: #f89920;
+    box-shadow: 0 15px 40px rgba(248, 153, 32, 0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(248, 153, 32, 0.1));
 }
 
 .event-card[data-event="North America"]:hover {
-    /* Deep navy — Lubricant Expo North America brand navy */
-    border-color: #023149;
-    box-shadow: 0 15px 40px rgba(2, 49, 73, 0.35);
-    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(2, 49, 73, 0.1));
+    /* LNA Blue */
+    border-color: #689abb;
+    box-shadow: 0 15px 40px rgba(104, 154, 187, 0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(104, 154, 187, 0.1));
 }
 
 .event-card[data-event="Europe"]:hover {
-    /* Teal — Lubricant Expo Europe brand teal */
-    border-color: #2d6a84;
-    box-shadow: 0 15px 40px rgba(45, 106, 132, 0.35);
-    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(45, 106, 132, 0.1));
+    /* LEX Blue */
+    border-color: #307d99;
+    box-shadow: 0 15px 40px rgba(48, 125, 153, 0.35);
+    background: linear-gradient(135deg, rgba(255,255,255,1), rgba(48, 125, 153, 0.1));
 }
 
 .state-shrunk .event-card-wrapper {
@@ -509,10 +509,12 @@ body {
 .event-logo {
     width: 100%;
     /* New logo artwork has the dates baked in (taller, ~1.84:1 vs the old
-       3.29:1 wordmark), so it needs more height to read at a normal size. */
-    max-height: 145px;
+       3.29:1 wordmark), so it needs more height to read at a normal size.
+       Card padding/gap below are tightened to compensate, so the overall
+       card size and spacing stays close to before this swap. */
+    max-height: 125px;
     object-fit: contain;
-    margin-bottom: 1.25rem;
+    margin-bottom: 0.85rem;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
 }
 

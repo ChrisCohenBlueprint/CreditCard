@@ -164,14 +164,11 @@ document.addEventListener('DOMContentLoaded', () => {
   Tracker.logEvent('page_view', { path: '/' });
 
   // Color each "Visit Website" link to match its event's brand hex.
-  // The link sits on the dark scene background (not the white event card),
-  // so it uses data-color-link — the same brand hue lifted for legibility —
-  // rather than the raw data-color used on the light card itself.
   document.querySelectorAll('.event-card-wrapper').forEach(wrapper => {
     const btn = wrapper.querySelector('.event-card');
     const link = wrapper.querySelector('.visit-link');
     if (btn && link) {
-      const color = btn.getAttribute('data-color-link') || btn.getAttribute('data-color');
+      const color = btn.getAttribute('data-color');
       if (color) {
         link.style.color = color;
         link.style.fontWeight = '700';

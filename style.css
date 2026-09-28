@@ -726,6 +726,37 @@ input[type="email"]:not(:placeholder-shown) + label {
     color: var(--primary);
 }
 
+.consent {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.6rem;
+    font-size: 0.78rem;
+    line-height: 1.45;
+    color: rgba(255, 255, 255, 0.65);
+    text-align: left;
+    cursor: pointer;
+}
+
+.consent input {
+    flex-shrink: 0;
+    width: 16px;
+    height: 16px;
+    margin-top: 1px;
+    accent-color: #ffd700;
+    cursor: pointer;
+}
+
+.consent a {
+    color: rgba(255, 255, 255, 0.85);
+    text-decoration: underline;
+}
+
+.form-error {
+    font-size: 0.85rem;
+    color: #fca5a5;
+    text-align: left;
+}
+
 .submit-btn {
     background: var(--accent-gradient);
     color: white;

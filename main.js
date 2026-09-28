@@ -97,12 +97,32 @@
   animate();
 })();
 
-// Simple Tracker Stub
+// Click tracking — each event becomes a document in MongoDB via /api/track.
+// The session id is per page load (no cookie), so one visitor's clicks can be
+// read as a sequence without identifying them.
+const SESSION_ID = (window.crypto && crypto.randomUUID)
+  ? crypto.randomUUID()
+  : Date.now().toString(36) + Math.random().toString(36).slice(2);
+
 const Tracker = {
-  logEvent: (eventName, data = {}) => {
-    console.log(`[TRACKING] Event: ${eventName}`, data);
-    // In a real scenario, this would post to an analytics API
-    // fetch('https://analytics-api.example.com/track', { ... })
+  logEvent: (type, data = {}) => {
+    const body = JSON.stringify({
+      type,
+      event_name: data.event_name,
+      session_id: SESSION_ID,
+      path: location.pathname,
+    });
+    // sendBeacon still delivers when the click navigates away (Visit Website).
+    const sent = navigator.sendBeacon &&
+      navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
+    if (!sent) {
+      fetch('/api/track', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body,
+        keepalive: true,
+      }).catch(() => {});
+    }
   }
 };
 
@@ -119,6 +139,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const successBadge = document.getElementById('success-badge');
   const claimBtn = document.getElementById('claim-btn');
   const modalVisitLink = document.getElementById('modal-visit-link');
+  const consentInput = document.getElementById('consent-input');
+  const privacyLink = document.getElementById('privacy-link');
+  const formError = document.getElementById('form-error');
   // ED elements
   const edPhoto = document.getElementById('ed-photo');
   const edQuote = document.getElementById('ed-quote');
@@ -252,8 +275,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const visitLink = el.parentElement.querySelector('.visit-link');
         if (visitLink) {
           modalVisitLink.href = visitLink.href;
+          // Each show's site carries its own copy of Blueprint's privacy policy
+          if (privacyLink) privacyLink.href = new URL('privacy-policy/', visitLink.href).href;
         }
       }
+      hideFormError();
 
       // Show Modal
       modal.classList.remove('hidden');
@@ -267,54 +293,111 @@ document.addEventListener('DOMContentLoaded', () => {
     selectedCardEvent = null;
   });
 
+  // Track "Visit Website" clicks, both under the cards and in the modal
+  document.querySelectorAll('.event-card-wrapper .visit-link').forEach(link => {
+    link.addEventListener('click', () => {
+      const btn = link.closest('.event-card-wrapper').querySelector('.event-card');
+      Tracker.logEvent('visit_website_clicked', { event_name: btn && btn.getAttribute('data-event') });
+    });
+  });
+  if (modalVisitLink) {
+    modalVisitLink.addEventListener('click', () => {
+      Tracker.logEvent('visit_website_clicked', { event_name: selectedCardEvent });
+    });
+  }
+
+  function showFormError(message) {
+    if (!formError) return;
+    formError.textContent = message;
+    formError.hidden = false;
+  }
+  function hideFormError() {
+    if (formError) formError.hidden = true;
+  }
+
+  // Saves the claim. Resolves true when it's stored, throws with a
+  // user-facing message when it isn't.
+  async function saveClaim(email, eventName) {
+    let res;
+    try {
+      res = await fetch('/api/claim', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          email,
+          event_name: eventName,
+          consent: consentInput ? consentInput.checked : false,
+          session_id: SESSION_ID,
+        }),
+      });
+    } catch {
+      throw new Error("We couldn't reach the server. Please check your connection and try again.");
+    }
+    const isJson = (res.headers.get('content-type') || '').includes('application/json');
+    if (!isJson) {
+      // Still on static hosting, so there is no API to save to. Keep the old
+      // behaviour so the live page doesn't break before the server is switched on.
+      // TODO: remove once Render is running server.js.
+      console.warn('Claim API not available — email was not saved');
+      return true;
+    }
+    const data = await res.json();
+    if (!res.ok || !data.ok) {
+      throw new Error(data.error || 'Something went wrong. Please try again.');
+    }
+    return true;
+  }
+
   // Handle Email Submission
-  emailForm.addEventListener('submit', (e) => {
+  emailForm.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = emailInput.value;
     const btn = emailForm.querySelector('.submit-btn');
     const btnText = btn.querySelector('.btn-text');
-    
+    if (btn.classList.contains('loading')) return;
+    hideFormError();
+
     // 1. Loading State
     btn.classList.add('loading');
-    
-    // Simulate network request
-    setTimeout(() => {
-      Tracker.logEvent('email_submitted', { 
-        event_name: selectedCardEvent,
-        email: email 
-      });
+    Tracker.logEvent('email_submitted', { event_name: selectedCardEvent });
 
-      // 2. Success State & Confetti
+    try {
+      await saveClaim(email, selectedCardEvent);
+    } catch (err) {
       btn.classList.remove('loading');
-      const originalText = btnText.textContent;
-      btnText.textContent = 'Success!';
-      btn.style.background = '#10b981'; // Green
-      
-      // Fire confetti burst
-      if (typeof confetti === 'function') {
-        confetti({
-          particleCount: 100,
-          spread: 70,
-          origin: { y: 0.6 },
-          colors: ['#689ABB', '#700907', '#ffffff']
-        });
-      }
+      showFormError(err.message);
+      return;
+    }
 
-      // Show persistent success badge
-      if (successBadge) {
-        successBadge.classList.remove('hidden');
-        setTimeout(() => successBadge.classList.add('hidden'), 6000);
-      }
+    // 2. Success State & Confetti
+    btn.classList.remove('loading');
+    const originalText = btnText.textContent;
+    btnText.textContent = 'Success!';
+    btn.style.background = '#10b981'; // Green
+    
+    // Fire confetti burst
+    if (typeof confetti === 'function') {
+      confetti({
+        particleCount: 100,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#689ABB', '#700907', '#ffffff']
+      });
+    }
 
-      // Reset after delay
-      setTimeout(() => {
-        modal.classList.add('hidden');
-        emailForm.reset();
-        btnText.textContent = originalText;
-        btn.style.background = '';
-        selectedCardEvent = null;
-      }, 2000);
-      
-    }, 1500); // 1.5 seconds loading simulation
+    // Show persistent success badge
+    if (successBadge) {
+      successBadge.classList.remove('hidden');
+      setTimeout(() => successBadge.classList.add('hidden'), 6000);
+    }
+
+    // Reset after delay
+    setTimeout(() => {
+      modal.classList.add('hidden');
+      emailForm.reset();
+      btnText.textContent = originalText;
+      btn.style.background = '';
+      selectedCardEvent = null;
+    }, 2000);
   });
 });

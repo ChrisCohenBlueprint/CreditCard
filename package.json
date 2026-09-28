@@ -1,8 +1,22 @@
 {
-  "name": "creditcard-static",
+  "name": "creditcard",
   "version": "1.0.0",
-  "description": "Static site for Render",
+  "description": "Credit card offer landing page with MongoDB click + claim tracking",
+  "private": true,
+  "main": "server.js",
   "scripts": {
-    "build": "echo 'Static site - no build required'"
+    "build": "echo 'No build step'",
+    "start": "node server.js",
+    "test": "node --test"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "mongodb": "^6.21.0"
+  },
+  "devDependencies": {
+    "mongodb-memory-server": "^10.4.3"
   }
 }

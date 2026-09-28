@@ -129,6 +129,11 @@
               <input type="email" id="email-input" name="email" placeholder=" " required autocomplete="email" />
               <label for="email-input">Your Email Address</label>
             </div>
+            <label class="consent">
+              <input type="checkbox" id="consent-input" name="consent" required />
+              <span>I agree to Blueprint Event Company Ltd emailing me my discount and information about this show, as set out in the <a id="privacy-link" href="https://lubricantexpo.com/eu/privacy-policy/" target="_blank" rel="noopener">privacy policy</a>.</span>
+            </label>
+            <p id="form-error" class="form-error" role="alert" hidden></p>
             <button type="submit" class="submit-btn" id="claim-btn" aria-live="polite">
               <span class="btn-text">Claim Offer</span>
               <span class="spinner hidden" aria-hidden="true"></span>

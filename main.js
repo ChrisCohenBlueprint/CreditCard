@@ -153,7 +153,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Parallax 3D Hover Effect
   const cardGlare = document.querySelector('.card-glare');
+  // Touchscreens fire a synthetic mousemove on tap; tilting then would set an
+  // inline full-size transform over the mobile card scaling.
+  const canHover = window.matchMedia('(hover: hover)').matches;
   mainCard.addEventListener('mousemove', (e) => {
+    if (!canHover) return;
     if (app.classList.contains('state-flipped')) return; // Disable hover tilt after flip
 
     const rect = mainCard.getBoundingClientRect();
@@ -176,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   mainCard.addEventListener('mouseleave', () => {
+    if (!canHover) return;
     if (app.classList.contains('state-flipped')) return;
     mainCard.style.transform = `translate(-50%, -50%) perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)`;
     if (cardGlare) {

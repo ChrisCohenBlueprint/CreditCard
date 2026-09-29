@@ -340,11 +340,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
     const isJson = (res.headers.get('content-type') || '').includes('application/json');
     if (!isJson) {
-      // Still on static hosting, so there is no API to save to. Keep the old
-      // behaviour so the live page doesn't break before the server is switched on.
-      // TODO: remove once Render is running server.js.
-      console.warn('Claim API not available — email was not saved');
-      return true;
+      // No API behind this page (e.g. an old static copy) — never fake success
+      throw new Error('Something went wrong. Please try again.');
     }
     const data = await res.json();
     if (!res.ok || !data.ok) {

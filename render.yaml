@@ -1,0 +1,16 @@
+# Render Blueprint: New → Blueprint → this repo. Render creates the web
+# service below and asks for MONGODB_URI (never committed here).
+services:
+  - type: web
+    name: creditcard-app
+    runtime: node
+    plan: starter            # free instances sleep when idle; first visitor waits ~1 min
+    region: frankfurt        # closest to the Atlas cluster in eu-west-1 (Ireland)
+    branch: main
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/health   # a deploy that can't reach MongoDB won't go live
+    autoDeploy: true
+    envVars:
+      - key: MONGODB_URI
+        sync: false          # Render prompts for this when the Blueprint is applied

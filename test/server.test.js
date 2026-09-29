@@ -75,6 +75,12 @@ test('claims are rejected without consent, a valid email or a real show', async 
   assert.equal(await db.collection('claims').countDocuments({ email: 'a@b.com' }), 0);
 });
 
+test('health check pings the database', async () => {
+  const res = await fetch(base + '/api/health');
+  assert.equal(res.status, 200);
+  assert.deepEqual(await res.json(), { ok: true, db: 'test' });
+});
+
 test('serves the page but not the server source or package files', async () => {
   assert.equal((await fetch(base + '/')).status, 200);
   assert.equal((await fetch(base + '/assets/logo-europe.png')).status, 200);

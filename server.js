@@ -81,6 +81,17 @@ function createApp(db) {
     res.json({ ok: true, duplicate: result.upsertedCount === 0 });
   });
 
+  // Lets Render (and us) confirm the server can actually reach MongoDB.
+  app.get('/api/health', async (req, res) => {
+    try {
+      await db.command({ ping: 1 });
+      res.json({ ok: true, db: db.databaseName });
+    } catch (err) {
+      console.error('Health check failed:', err.message);
+      res.status(503).json({ ok: false, error: 'database unreachable' });
+    }
+  });
+
   // Unknown API routes get JSON, not the landing page.
   app.use('/api', (req, res) => res.status(404).json({ ok: false, error: 'not found' }));
 
@@ -115,8 +126,16 @@ async function main() {
     console.error('MONGODB_URI is not set');
     process.exit(1);
   }
-  const client = new MongoClient(uri);
-  await client.connect();
+  // Fail fast with a clear message rather than hanging for 30s on the
+  // usual culprits: Atlas Network Access not allowing Render, or a bad password.
+  const client = new MongoClient(uri, { serverSelectionTimeoutMS: 10000 });
+  try {
+    await client.connect();
+  } catch (err) {
+    console.error('Could not connect to MongoDB. Check the password in MONGODB_URI and that Atlas Network Access allows 0.0.0.0/0.');
+    console.error(err.message);
+    process.exit(1);
+  }
   const db = client.db(process.env.MONGODB_DB || 'creditcard');
   await ensureIndexes(db);
 

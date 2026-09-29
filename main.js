@@ -204,7 +204,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Line the shrunk card up with the middle (North America) event card.
+  // Line the shrunk card up with the middle event card (whichever show is second).
   // Measured rather than hard-coded: the events column is centred as a whole,
   // but each wrapper carries a footer below its card, so the column's centre
   // sits ~12px below the middle card's centre.

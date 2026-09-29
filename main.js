@@ -126,6 +126,9 @@ const Tracker = {
   }
 };
 
+// Embedded in another site's page (e.g. the WordPress iframe) — see .embedded in style.css
+if (window.self !== window.top) document.documentElement.classList.add('embedded');
+
 document.addEventListener('DOMContentLoaded', () => {
   // Elements
   const app = document.getElementById('app');

@@ -872,6 +872,16 @@ input[type="email"]:not(:placeholder-shown) + label {
         white-space: nowrap;
     }
 
+    /* Embedded in a tall fixed-height iframe (the WordPress page), "centred"
+       means hundreds of pixels down, so sit the card near the top instead.
+       The .embedded class is set by main.js when the page is in an iframe. */
+    .embedded .card {
+        top: 190px;
+    }
+    .embedded .tap-hint {
+        top: 315px;
+    }
+
     /* After the flip: card pinned near the top… */
     .state-shrunk .card {
         top: calc(env(safe-area-inset-top, 0px) + 16px + 250px * var(--m-card-scale-shrunk, 0.62) / 2) !important;
